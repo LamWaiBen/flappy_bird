@@ -1,0 +1,2 @@
+# flappy_bird
+用CocosCreator实现一遍flappy_bird
