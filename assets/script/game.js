@@ -30,8 +30,12 @@ cc.Class({
 
         score: 0,
         second: 0,
-
         gameStatus: 0,      // 0: 未开始, 1: 游戏中,  2:游戏结束,  3: 游戏暂停
+        
+        mapSpeed: {
+            default: 3,
+            displayName: '地图移动速度',
+        },
 
     },
 
@@ -44,13 +48,13 @@ cc.Class({
     start() {
     },
 
-    isGameInit() { return this.gameStatus === 0},
-    isGameStart(){ return this.gameStatus === 1},
-    isGameOver() { return this.gameStatus === 2},
-    isGamePause() { return this.gameStatus === 3},
+    isGameInit() { return this.gameStatus === 0 },
+    isGameStart() { return this.gameStatus === 1 },
+    isGameOver() { return this.gameStatus === 2 },
+    isGamePause() { return this.gameStatus === 3 },
 
     gameStart() {
-        if(!this.isGameInit()) return;
+        if (!this.isGameInit()) return;
         console.log('游戏开始');
         this.startTitle.active = false;
         this.mask.node.active = false;
@@ -96,5 +100,9 @@ cc.Class({
         } else if (this.isGamePause()) {
             this.gameStart()
         }
-    }
+    },
+
+    passSewer() {
+        // this.player.getComponent('Player')
+    },
 });
