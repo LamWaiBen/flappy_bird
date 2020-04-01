@@ -2,9 +2,14 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        startbtn: {
+        startTitle: {
             default: null,
-            type: cc.Button,
+            type: cc.Node,
+        },
+
+        failTitle: {
+            default: null,
+            type: cc.Node,
         },
 
         mask: {
@@ -31,12 +36,12 @@ cc.Class({
     },
 
     onLoad() {
+        this.ground.getComponent('Ground').game = this;
+        this.player.getComponent('Player').game = this;
 
     },
 
     start() {
-        this.ground.game = this;
-        this.player.game = this;
     },
 
     isGameInit() { return this.gameStatus === 0},
@@ -47,7 +52,7 @@ cc.Class({
     gameStart() {
         if(!this.isGameInit()) return;
         console.log('游戏开始');
-        this.startbtn.node.active = false;
+        this.startTitle.active = false;
         this.mask.node.active = false;
 
         this.gameStatus = 1
@@ -57,6 +62,7 @@ cc.Class({
         if (!this.isGameStart()) return;
 
         // show scorebroad
+        this.failTitle.active = true;
         this.mask.node.active = true;
 
         this.gameStatus = 2
@@ -69,13 +75,18 @@ cc.Class({
         this.second = 0
         this.gameStatus = 0
 
+        this.startTitle.active = true;
+        this.failTitle.active = false;
         this.mask.node.active = false;
+
+        this.player.stopAllActions();
+        this.ground.stopAllActions();
+        cc.director.loadScene('game');
     },
 
     // update() {
 
     // }
-
 
     onClickMask() {
         if (this.isGameInit()) {
